@@ -9,8 +9,8 @@ use App\Http\Resources\Admin\UsersResource;
 use App\Http\Resources\Front\OrdersResource;
 use App\Models\Admin\Address;
 use App\Models\Admin\CitiyPrice;
-use App\Models\admin\Coupon;
-use App\Models\admin\CouponUser;
+use App\Models\Admin\Coupon;
+use App\Models\Admin\CouponUser;
 use App\Models\Admin\OfferCard;
 use App\Models\Admin\Offers;
 use App\Models\Admin\OrderAddress;
@@ -29,7 +29,6 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 class OrderApiConroller extends Controller
 {
-
     protected $user;
     protected $has_coupon;
     protected $cart;
@@ -53,7 +52,7 @@ class OrderApiConroller extends Controller
             // check if coupon sent 
             $this->has_coupon = null;
             // check coupon
-            if(!$this->check_coupon($request)){
+            if(isset($request->coupon_code) && !$this->check_coupon($request)){
                 return  $this->res(true, 'Invaild Coupon', 400);
             }
             // get cart and offer cart
@@ -148,11 +147,12 @@ class OrderApiConroller extends Controller
     private function store_order($request){
         $old_price = null;
         $old_price  = $this->total_price;  
+        
         // check for coupon
         if(isset($this->has_coupon) && $this->has_coupon != null){
             $old_price = $this->total_price;
             $total_price = ( $this->total_price *  $this->has_coupon ) / 100 ; 
-            $total_price  = $this->total_price - $total_price;
+            $this->total_price  = $this->total_price - $total_price;
         }
 
         // check for pounds
