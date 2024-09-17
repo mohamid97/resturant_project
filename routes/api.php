@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\OrderApiConroller;
 use App\Http\Controllers\Api\StatisticsController;
 use App\Http\Controllers\Api\GovPriceController;
 use App\Http\Controllers\Api\OffersController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -99,6 +100,8 @@ Route::prefix('products')->group(function (){
     Route::get('get' , [\App\Http\Controllers\Api\ProductController::class , 'get']);
     Route::post('/product_details/get' , [\App\Http\Controllers\Api\ProductController::class , 'get_product_details']);
     Route::post('category/get' , [\App\Http\Controllers\Api\ProductController::class , 'get_product_category']);
+    Route::post('category/slug' , [\App\Http\Controllers\Api\ProductController::class , 'get_product_slug']);
+
 });
 
 
@@ -161,6 +164,17 @@ Route::prefix('faq')->group(function(){
     Route::post('fees' , [OrderApiConroller::class , 'fees']);
     Route::post('guest/store' , [OrderApiConroller::class , 'store_order_guest'] );
    });
+
+
+
+
+   // search with categoy and product and offers general setting
+   Route::prefix('search')->group(function(){
+    Route::post('/general_search' , [SearchController::class , 'general_search']);
+   });
+
+
+
 
 
 

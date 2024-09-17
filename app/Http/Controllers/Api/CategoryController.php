@@ -22,6 +22,8 @@ class CategoryController extends Controller
         }])->with('products.gallery')->whereHas('translations', function ($query) {
             $query->where('locale', '=', app()->getLocale());
         })->get();
+
+        
         return  $this->res(true ,'All Categories ' , 200 ,CategoryResource::collection($categories));
 
     }

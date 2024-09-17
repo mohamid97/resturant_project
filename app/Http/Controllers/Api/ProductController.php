@@ -42,4 +42,19 @@ class ProductController extends Controller
         return  $this->res(true ,'All Products' , 200 ,ProductResource::collection($products));
 
     }
+
+
+    public function get_product_slug(Request $request){
+
+        $request->validate([
+            'category_id'=>'required|integer'
+        ]);
+        $products = Product::with(['category' , 'gallery'])->whereHas('translations', function ($query) use($request) {
+            $query->where('locale', '=', app()->getLocale())->where('slug' , $request->slug);
+        })->get();
+        return  $this->res(true ,'All Products' , 200 ,ProductResource::collection($products));
+
+    }
+
+    
 }

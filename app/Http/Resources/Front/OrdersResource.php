@@ -54,14 +54,17 @@ class OrdersResource extends JsonResource
             
             $product = Product::with('gallery')->find($normal->product_id);
         
-            $this->all_normal_products[] = [
-                'name'=>$product->name,
-                'id'=>$product->id,
-                'price'=>$normal->price,
-                'quantity'=>$normal->quantity,
-                'gallery'=>$product->gallery
+            if($product){
+                $this->all_normal_products[] = [
+                    'name'=>$product->name,
+                    'id'=>$product->id,
+                    'price'=>$normal->price,
+                    'quantity'=>$normal->quantity,
+                    'gallery'=>$product->gallery
+    
+                ];
+            }
 
-            ];
         }
         
     } 
@@ -72,13 +75,15 @@ class OrdersResource extends JsonResource
         foreach($offerItems as $off){
             
             $offer = Offers::with('offer_products')->find($off->offer_id);
-          
-            $this->all_offer_products[] = [
-                'offer_title'=>$offer->title,
-                'offer_price'=>$off->price,
-                'products'=>ProductResource::collection(Product::with('gallery')->whereIn('id' , $offer->offer_products->pluck('product_id'))->get())
+            if(isset($offer)){
+                $this->all_offer_products[] = [
+                    'offer_title'=>$offer->title,
+                    'offer_price'=>$off->price,
+                    'products'=>ProductResource::collection(Product::with('gallery')->whereIn('id' , $offer->offer_products->pluck('product_id'))->get())
+    
+                ];
+            }
 
-            ];
         }
         
     }

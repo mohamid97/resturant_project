@@ -250,7 +250,7 @@ class OrderApiConroller extends Controller
     // store offer cart to order details 
     public function store_offer_cart_to_order_detsils()
     {
-        if(isset($this->offer_cart)){
+        if(isset($this->offer_card)){
                 foreach ($this->offer_card as $of_cart) {
                     $offer = Offers::find($of_cart->offer_id);
                     if(isset($offer)){
