@@ -303,9 +303,12 @@ class CartController extends Controller
                 return  $this->res(true ,'Offer Carts ' , 200 ,  OffersCardResource::collection($this->offer_card));
              }
             return  $this->res(true ,'User Has No Offer In Cart' , 200);
+            
+
         }catch(\Exception $e){    
             return  $this->res(false ,'Error Happend' , $e->getCode() , $e->getMessage());
         }
+
 
     } // end get cart offer 
 

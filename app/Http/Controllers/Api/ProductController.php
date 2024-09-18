@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\CategoryDetailsResource;
+use App\Http\Resources\Admin\CategoryResource;
 use App\Http\Resources\Admin\ProductDetailsResource;
 use App\Http\Resources\Admin\ProductResource;
+use App\Models\Admin\Category;
 use App\Models\Admin\Product;
 use App\Trait\ResponseTrait;
 use Illuminate\Http\Request;
@@ -44,17 +47,39 @@ class ProductController extends Controller
     }
 
 
+    // get products with category slug
     public function get_product_slug(Request $request){
 
         $request->validate([
-            'category_id'=>'required|integer'
+            'category_slug'=>'required|string'
         ]);
-        $products = Product::with(['category' , 'gallery'])->whereHas('translations', function ($query) use($request) {
-            $query->where('locale', '=', app()->getLocale())->where('slug' , $request->slug);
-        })->get();
-        return  $this->res(true ,'All Products' , 200 ,ProductResource::collection($products));
+    
 
-    }
+        $category_details = Category::with(['products.gallery' , 'translations'])->whereHas('translations', function ($query) use ($request) {
+            $query->where('slug', $request->category_slug);
+        })->first();
+        if(isset($category_details)){
+
+            // Find the translation that matches the provided slug
+            $translation = $category_details->translations->firstWhere('slug', $request->category_slug);
+
+            // Get the locale (language) of the matching translation
+            $slug = $translation->slug;
+            $locale = $translation->locale;  // 'ar' or 'en', depending on the slug
+            if($locale != app()->getLocale() ){
+                $category_details = Category::with('products.gallery')->where('id' , $category_details->id)->whereHas('translations', function ($query) {
+                    $query->where('locale', '=', app()->getLocale());
+                })->first();
+            }
+        }
+        if(optional($category_details)->exists()){
+            return  $this->res(true ,'All Categories with products ' , 200 ,new CategoryResource($category_details));
+        }
+        return  $this->res(false ,'Category details not found. Maybe there is no data with this slug or no data in this language.' , 404);
+
+
+    } // end of  get product with slug
 
     
 }
+

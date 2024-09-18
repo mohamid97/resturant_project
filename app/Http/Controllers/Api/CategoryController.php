@@ -30,10 +30,21 @@ class CategoryController extends Controller
 
     public function get_details(Request $request){
 
-
-        $category_details = Category::whereHas('translations', function ($query) use($request) {
-            $query->where('locale', '=', app()->getLocale())->where('slug' , $request->slug);
+        // get cateogory with slug
+        $category_details =Category::whereHas('translations', function ($query) use($request) {
+            $query->where('slug' , $request->slug);
         })->first();
+
+
+        if(isset($category_details)){
+            if($category_details->locale != app()->getLocale() ){
+                $category_details = Category::where('id' , $category_details->id)->whereHas('translations', function ($query) {
+                    $query->where('locale', '=', app()->getLocale());
+                })->first();
+            }
+        }
+
+
 
         if(optional($category_details)->exists()){
             return  $this->res(true ,'Category Details' , 200 , new CategoryDetailsResource($category_details));

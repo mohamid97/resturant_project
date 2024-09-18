@@ -28,4 +28,5 @@ class AllOffersReource extends JsonResource
             
         ];
     }
+    
 }
