@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CartsController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DeliveryController;
+use App\Http\Controllers\Admin\FeaturedController;
 use App\Http\Controllers\Admin\FeedBackController;
 use App\Http\Controllers\Admin\FqaController;
 use App\Http\Controllers\Admin\Government;
@@ -73,6 +74,13 @@ Route::middleware(['checkIfAdmin' , 'checkLocale'])->prefix('admin')->group(func
 
 
 
+
+    //start featured products
+    Route::prefix('featured')->group(function(){
+        Route::get('/get' , [FeaturedController::class ,'index'])->name('admin.featured.index');
+        Route::get('/delete/{id}' , [FeaturedController::class , 'delete'])->name('admin.featured.delete');
+        Route::post('store' , [ FeaturedController::class, 'store'])->name('admin.featured.store');
+    });
 
 
 

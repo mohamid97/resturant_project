@@ -146,19 +146,19 @@ class OrderApiConroller extends Controller
     // start order
     private function store_order($request){
         $old_price = null;
-        $old_price  = $this->total_price;  
+        $total_price  = $this->total_price;  
         
         // check for coupon
         if(isset($this->has_coupon) && $this->has_coupon != null){
-            $old_price = $this->total_price;
-            $total_price = ( $this->total_price *  $this->has_coupon ) / 100 ; 
-            $this->total_price  = $this->total_price - $total_price;
+            $old_price = $total_price;
+            $total_price = ( $total_price*  $this->has_coupon ) / 100 ; 
+            $total_price  = $total_price - $total_price;
         }
 
         // check for pounds
         if(isset($this->has_pounds) && $this->has_pounds != null){
-            $old_price = $this->total_price;
-            $total_price = ( $this->total_price -  $this->has_pounds); 
+            $old_price = $total_price;
+            $total_price = ( $total_price -  $this->has_pounds); 
 
         }
 

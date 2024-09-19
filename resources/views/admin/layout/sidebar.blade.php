@@ -468,6 +468,15 @@
                                 </li>
 
 
+
+                                <li class="nav-item">
+                                    <a href="{{route('admin.featured.index')}}" class="nav-link">
+                                        <i class="fa fa-plus nav-icon"></i>
+                                        <p>  @lang('main.featured') </p>
+                                    </a>
+                                </li>
+
+
                             </ul>
                         </li>
                     @endif

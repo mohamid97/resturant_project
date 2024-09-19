@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CouponsController;
 use App\Http\Controllers\Api\DeliveryController;
 use App\Http\Controllers\Api\DescriptionController;
 use App\Http\Controllers\Api\FaqController;
+use App\Http\Controllers\Api\FeaturedApiController;
 use App\Http\Controllers\Api\FeedbackController;
 use App\Http\Controllers\Api\GovController;
 use App\Http\Controllers\Api\MediaController;
@@ -175,6 +176,9 @@ Route::prefix('faq')->group(function(){
 
 
 
+   Route::prefix('featured')->group(function(){
+     Route::get('/products' , [FeaturedApiController::class , 'get']);
+   });
 
 
 

@@ -26,6 +26,7 @@ class ProductResource extends JsonResource
             'meta_des'    =>$this->meta_des,
             'slug'        =>$this->slug,
             'gallery'     =>$this->whenLoaded('gallery'),
+            'path'        =>asset('uploads/images/gallery')
             
         ];
     }
