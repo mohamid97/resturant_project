@@ -136,13 +136,6 @@ return [
     'old_price'=>'Old Price',
 
 
-
-  
-    
-
-
-
-
   
  
 ];

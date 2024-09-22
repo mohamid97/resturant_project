@@ -103,9 +103,7 @@
             display: flex;
             flex-wrap: wrap;
             align-items: flex-end;
-            align-items: center;
             justify-content: center;
-
         }
         .background h1 {
             max-width: 420px;
@@ -114,7 +112,6 @@
             padding: 0;
             margin: 0;
         }
-
         .created {
             margin-top: 40px;
             text-align: center;
@@ -134,125 +131,84 @@
             display: inline;
             margin: 0;
         }
-
-
-
         .content h2 {
-	color: #fff;
-    font-size: 9em;
-	position: absolute;
-	transform: translate(-50%, -50%);
-    font-weight: bold;
-}
-
-.content h2:nth-child(1) {
-	color: transparent;
-	-webkit-text-stroke: 2px #0e5d38;
-}
-
-.content h2:nth-child(2) {
-	color: #279763;
-	animation: animate 4s ease-in-out infinite;
-}
-
-@keyframes animate {
-	0%,
-	100% {
-		clip-path: polygon(
-			0% 45%,
-			16% 44%,
-			33% 50%,
-			54% 60%,
-			70% 61%,
-			84% 59%,
-			100% 52%,
-			100% 100%,
-			0% 100%
-		);
-	}
-
-	50% {
-		clip-path: polygon(
-			0% 60%,
-			15% 65%,
-			34% 66%,
-			51% 62%,
-			67% 50%,
-			84% 45%,
-			100% 46%,
-			100% 100%,
-			0% 100%
-		);
-	}
-}
-
-
-
-.digital {
-
-    text-transform: uppercase;
-    transform: rotate(-20deg) skew(25deg);
-    animation: blur 5s ease-in-out infinite;
-    font-size: 29px;
-    text-align: right;
-    padding: 0;
-    margin: 30% 0 0 0;
-    position: absolute;
-    color: #2c8b5f;
-    font-weight: bold;
-    transform: rotate(-5deg) skew(5deg) translate(30px, -30px);
-    text-shadow: -40px 40px 0 rgba(0,0,0,.2);
-}
-
-
-
+            color: #fff;
+            font-size: 9em;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+        .content h2:nth-child(1) {
+            color: transparent;
+            -webkit-text-stroke: 2px #0e5d38;
+        }
+        .content h2:nth-child(2) {
+            color: #279763;
+            animation: animate 4s ease-in-out infinite;
+        }
+        @keyframes animate {
+            0%, 100% {
+                clip-path: polygon(0% 45%, 16% 44%, 33% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+            }
+            50% {
+                clip-path: polygon(0% 60%, 15% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+            }
+        }
+        .digital {
+            text-transform: uppercase;
+            transform: rotate(-20deg) skew(25deg);
+            animation: blur 5s ease-in-out infinite;
+            font-size: 29px;
+            text-align: right;
+            padding: 0;
+            margin: 30% 0 0 0;
+            position: absolute;
+            color: #2c8b5f;
+            font-weight: bold;
+            text-shadow: -40px 40px 0 rgba(0,0,0,.2);
+        }
     </style>
 </head>
 <body>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div id="login-page">
-                <div class="login">
-                    <h2 class="login-title">Login</h2>
-                    <p class="notice">Please login to access the system</p>
-                    <form class="form-login" method="POST" action="{{route('login')}}">
-                        @csrf
-                        <label for="email">E-mail</label>
-                        <div class="input-email">
-                            <i class="fas fa-envelope icon"></i>
-                            <input type="email" name="email" placeholder="Enter your e-mail" required>
-                        </div>
-                        <label for="password">Password</label>
-                        <div class="input-password">
-                            <i class="fas fa-lock icon"></i>
-                            <input type="password" name="password" placeholder="Enter your password" required>
-                        </div>
-                        <button type="submit"><i class="fas fa-door-open"></i> Sign in</button>
-                    </form>
-
-                </div>
-                <div class="background">
-                    <div class="content">
-                        <h2>CanGrow  </h2>
-                        <h2>CanGrow  </h2>
-                    </div>
-
-
-                    <p class="digital"> Digital Marketing </p>
-                </div>
+<div id="login-page">
+    <div class="login">
+        <h2 class="login-title">Login</h2>
+        <p class="notice">Please login to access the system</p>
+        <form class="form-login" method="POST" action="{{ route('login') }}">
+            @csrf
+            <label for="email">E-mail</label>
+            <div class="input-email">
+                <i class="fas fa-envelope icon"></i>
+                <input type="email" name="email" placeholder="Enter your e-mail" required>
             </div>
+            <label for="password">Password</label>
+            <div class="input-password">
+                <i class="fas fa-lock icon"></i>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit"><i class="fas fa-door-open"></i> Sign in</button>
+        </form>
+    </div>
+    <div class="background">
+        <div class="content">
+            <h2>CanGrow</h2>
+            <h2>CanGrow</h2>
+        </div>
+        <p class="digital"> Digital Marketing </p>
+    </div>
+</div>
 
-
-
-
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>

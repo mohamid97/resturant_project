@@ -15,8 +15,8 @@ class FeaturedProductsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'featured_id' =>$this->id,
-            'product_id'  =>$this->product->id,
+            
+            'id'  =>$this->product->id,
             'name'        =>$this->product->name,
             'image_path'  =>asset('uploads/images/gallery'),
             'price'       =>$this->product->price,
@@ -29,3 +29,6 @@ class FeaturedProductsResource extends JsonResource
         ];
     }
 }
+
+
+
