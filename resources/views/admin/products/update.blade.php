@@ -75,15 +75,15 @@
 
                         
                         <div class="form-group">
-                            <label for="discount"> @lang('main.price')  </label>
-                            <input type="text" name="discount" class="form-control" id="price" placeholder="@lang('plachoder.discount')" value="{{ $product->discount }}">
+                            <label for="discount"> @lang('main.discount')  </label>
+                            <input type="text" name="discount" class="form-control" id="discount" placeholder="@lang('plachoder.discount')" value="{{ $product->discount }}">
                             @error('discount')
                             <div class="text-danger">{{ $errors->first('discount') }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="old_price"> @lang('main.price')  </label>
+                            <label for="old_price"> @lang('main.old_price')  </label>
                             <input type="text" name="old_price" class="form-control" id="old_price" placeholder="@lang('plachoder.old_price')" value="{{ $product->old_price }}">
                             @error('old_price')
                             <div class="text-danger">{{ $errors->first('old_price') }}</div>

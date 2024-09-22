@@ -72,7 +72,9 @@ class ProductController extends Controller
             DB::beginTransaction();
             $product = Product::findOrFail($id);
             $product->update([
-                'price'       =>        $request->price,
+                'price'       => $request->price,
+                'discount'    => $request->discount,
+                'old_price'   =>$request->old_price,  
                 'category_id' => $request->category,
                 'star'       => $request->star
             ]);
